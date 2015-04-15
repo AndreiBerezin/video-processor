@@ -11,12 +11,12 @@ def processImage(filename):
     cv2.imwrite(filename, im_bw)
 
 
-def explodeVideo(filename, targetDirName):
+def splitVideo(filename, targetDirName):
     command = 'ffmpeg -i %s %s/%s' % (filename, targetDirName, DEFAULT_IMGS_PATTERN)
     os.popen('%s' % command).read()
 
 
-def implodeVideo(dirname, targetFilename):
+def joinVideo(dirname, targetFilename):
     command = 'ffmpeg -f image2 -y -i %s/%s -vcodec png %s' % (dirname, DEFAULT_IMGS_PATTERN, targetFilename)
     os.popen('%s' % command).read()
 
@@ -37,7 +37,7 @@ def main(argv):
     os.makedirs(DEFAULT_IMGS_DIR)
 
     print 'start explode video'
-    explodeVideo(argv[1], DEFAULT_IMGS_DIR)
+    splitVideo(argv[1], DEFAULT_IMGS_DIR)
 
     imgsCount = len([name for name in os.listdir(DEFAULT_IMGS_DIR) if os.path.isfile(os.path.join(DEFAULT_IMGS_DIR, name))])
     print 'end explode video. images count=%d' % imgsCount
@@ -47,7 +47,7 @@ def main(argv):
         processImage(DEFAULT_IMGS_DIR + '/' + DEFAULT_IMGS_PATTERN.replace('%d', str(img)))
 
     print 'start implode video'
-    implodeVideo(DEFAULT_IMGS_DIR, argv[2])
+    joinVideo(DEFAULT_IMGS_DIR, argv[2])
 
     print 'end of work'
     shutil.rmtree(DEFAULT_IMGS_DIR)
