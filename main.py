@@ -7,8 +7,8 @@ DEFAULT_IMGS_PATTERN = 'image%d.png'
 
 def processImage(filename):
     img = cv2.imread(filename, cv2.CV_LOAD_IMAGE_GRAYSCALE)
-    (thresh, im_bw) = cv2.threshold(img, 128, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)
-    cv2.imwrite(filename, im_bw)
+    (thresh, imgBaW) = cv2.threshold(img, 128, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)
+    cv2.imwrite(filename, imgBaW)
 
 
 def splitVideo(filename, targetDirName):
@@ -17,16 +17,15 @@ def splitVideo(filename, targetDirName):
 
 
 def joinVideo(dirname, targetFilename):
-    command = 'ffmpeg -f image2 -y -i %s/%s -vcodec png %s' % (dirname, DEFAULT_IMGS_PATTERN, targetFilename)
+    #command = 'ffmpeg -f image2 -y -i %s/%s -vcodec png %s' % (dirname, DEFAULT_IMGS_PATTERN, targetFilename)
+    command = 'ffmpeg -y -i %s/%s -vcodec rawvideo -pix_fmt bgr24 %s' % (dirname, DEFAULT_IMGS_PATTERN, targetFilename)
     os.popen('%s' % command).read()
 
 
 def main(argv):
-    try:
-        if len(argv) != 3:
-            raise Exception('format: main.py <input> <output>')
-    except Exception as e:
-        print e.message
+    if len(argv) != 3:
+        print 'format: main.py <input> <output>'
+
         return 1
 
     print 'making dir "%s"' % DEFAULT_IMGS_DIR
@@ -56,5 +55,3 @@ def main(argv):
 
 
 main(sys.argv)
-
-#ffmpeg -i video.avi -vcodec libx264 -pix_fmt yuv420p -b:v 200000k output.mp4
