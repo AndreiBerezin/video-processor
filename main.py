@@ -5,6 +5,7 @@ import sys, shutil
 
 from FiltersManager import FiltersManager
 from Filters.MovingAverageFilter import MovingAverageFilter
+from Filters.PseudoColorFilter import PseudoColorFilter
 
 DEFAULT_IMGS_DIR = 'imgs'
 DEFAULT_IMGS_OUT_DIR = 'imgs_out'
@@ -75,7 +76,7 @@ def main(argv):
 
     filterManager = FiltersManager()
     filterManager.addFilter(MovingAverageFilter(2, 2))
-    filterManager.addFilter(MovingAverageFilter(20, 20))
+    filterManager.addFilter(PseudoColorFilter())
 
     lastCorrect = 0
     numberToSave = 1
