@@ -6,6 +6,9 @@ import sys, shutil
 from FiltersManager import FiltersManager
 from Filters.MovingAverageFilter import MovingAverageFilter
 from Filters.PseudoColorFilter import PseudoColorFilter
+from Filters.CropFilter import CropFilter
+from Filters.DarkFilter import DarkFilter
+from Filters.NormalizationFilter import NormalizationFilter
 
 DEFAULT_IMGS_DIR = 'imgs'
 DEFAULT_IMGS_OUT_DIR = 'imgs_out'
@@ -32,11 +35,16 @@ def processImage(imgNumber, lastCorrectImgNumber, numberToSave, filters):
     if imgsIsSimilar(img, prevImg):
         return False
 
+    #cv2.absdiff(prevImg, img, outImg)
+
+    dark = DarkFilter('dark.png')
+    outImg = dark.do(outImg)
+    ma = MovingAverageFilter(2, 2)
+    outImg = ma.do(outImg)
+    cv2.absdiff(outImg, img, outImg)
+
     for filter in filters.values():
         outImg = filter.do(outImg)
-
-    #cv2.absdiff(prevImg, img, outImg)
-    #outImg = outImg[200:530, 270:470]
 
     cv2.imwrite(getImgFilename(DEFAULT_IMGS_OUT_DIR, numberToSave), outImg)
 
@@ -75,7 +83,10 @@ def main(argv):
     print 'end explode video. images count=%d' % imgsCount
 
     filterManager = FiltersManager()
-    filterManager.addFilter(MovingAverageFilter(2, 2))
+    #filterManager.addFilter(MovingAverageFilter(2, 2))
+    #filterManager.addFilter(CropFilter(230, 263, 575, 530))
+    #filterManager.addFilter(DarkFilter('dark.png'))
+    filterManager.addFilter(NormalizationFilter())
     filterManager.addFilter(PseudoColorFilter())
 
     lastCorrect = 0
