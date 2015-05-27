@@ -3,7 +3,7 @@ import config
 from Logger import Logger
 
 
-class VideoProcessor:
+class DefaultVideoProcessor:
     def __init__(self):
         pass
 

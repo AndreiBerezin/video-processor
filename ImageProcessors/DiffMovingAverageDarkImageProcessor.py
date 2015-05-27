@@ -18,7 +18,7 @@ class DiffMovingAverageDarkImageProcessor(AbstractImageProcessor):
 
     def _processImage(self, image, prevImage):
         if self._pixelsX == 0 or self._pixelsY == 0 or self._darkImgFilename == '':
-            raise Exception('You must init processor!')
+            raise Exception('You must init image processor!')
 
         outImage = image
 

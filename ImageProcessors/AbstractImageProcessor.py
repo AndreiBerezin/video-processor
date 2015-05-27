@@ -15,15 +15,12 @@ class AbstractImageProcessor:
     def openImg(self, filename):
         return cv2.imread(filename, cv2.CV_LOAD_IMAGE_UNCHANGED)
 
-    def _filtersWork(self, img, filters):
-
-
     def _imgsIsSimilar(self, image1, image2):
         return image1.shape == image2.shape and not (np.bitwise_xor(image1, image2).any())
 
     def process(self, imageNumbersForProcess, filters):
-        numberLastCorrect = 1
-        numberToSave = 2 #first image always skipped
+        numberLastCorrect = 1 #first image always skipped
+        numberToSave = 1
         for imageNumber in imageNumbersForProcess:
             try:
                 image = self.openImg(self.getImgFilename(config.DEFAULT_IMGS_DIR, imageNumber))
