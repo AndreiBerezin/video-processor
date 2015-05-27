@@ -35,7 +35,7 @@ working with COLORMAP_PINK
 calculate absolute difference between images<br>
 <br>
 2) DiffMovingAverageDarkImageProcessor<br>
-calculate absolute difference between image and same image with moving average<br>
+calculate absolute difference between image and same image with dark and moving average filters<br>
 <br>
 <br>
 <b>Available video processors:</b><br>
