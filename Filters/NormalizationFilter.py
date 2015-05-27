@@ -1,7 +1,7 @@
 import cv2
 
+#in construction
 class NormalizationFilter:
-
     def __init__(self):
         pass
 

@@ -1,4 +1,3 @@
-
 class FiltersManager:
     _filters = {}
 

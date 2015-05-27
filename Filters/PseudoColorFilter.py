@@ -1,5 +1,6 @@
 import cv2
 
+
 class PseudoColorFilter:
     def __init__(self):
         pass

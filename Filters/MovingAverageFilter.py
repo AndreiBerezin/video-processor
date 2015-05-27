@@ -1,6 +1,7 @@
 import cv2
 import numpy as np
 
+
 class MovingAverageFilter:
     _pixelsX = 0
     _pixelsY = 0

@@ -11,12 +11,15 @@ DEFAULT_IMGS_PATTERN = 'image%d.png'
 def getImgFilename(prefix, number):
     return prefix + '/' + DEFAULT_IMGS_PATTERN.replace('%d', str(number))
 
+
 def openImg(filename):
     return cv2.imread(filename, cv2.CV_LOAD_IMAGE_UNCHANGED)
+
 
 def splitVideo(filename, targetDirName):
     command = 'ffmpeg -i %s %s/%s' % (filename, targetDirName, DEFAULT_IMGS_PATTERN)
     os.popen('%s' % command).read()
+
 
 def main(argv):
     if len(argv) != 2:
@@ -53,5 +56,6 @@ def main(argv):
     cv2.imwrite(getImgFilename(DEFAULT_IMGS_OUT_DIR, 55), outImg)
 
     return 0
+
 
 main(sys.argv)
