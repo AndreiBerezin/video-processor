@@ -22,7 +22,7 @@ class DiffMovingAverageDarkImageProcessor(AbstractImageProcessor):
 
         outImage = image
 
-        dark = DarkFilter('dark.png')
+        dark = DarkFilter(self._darkImgFilename)
         outImage = dark.do(outImage)
 
         ma = MovingAverageFilter(self._pixelsX, self._pixelsY)
